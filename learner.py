@@ -14,9 +14,9 @@ __email__ = "nuttereg@gmail.com"
 helpstr = """ lol """
 
 class Quiz:
-    def __init__(self):
-        self.name = ""
-        self.cards = []
+    def __init__(self, name="", cards = []):
+        self.name = name
+        self.cards = cards
         self.size = 0
 
     def from_file(self, filenames):
@@ -29,10 +29,9 @@ class Quiz:
                 print("{} does not appear to exist", file)
                 break
         
-        [ deck for deck in decks [ card for card in deck self.cards.append(card) ]]
-        #for deck in decks:
-        #    for card in deck:
-        #        self.cards.append(card)
+        for deck in decks:
+            for card in deck:
+                self.cards.append(card)
 
     def to_string(self):
         pass
@@ -44,9 +43,9 @@ class Quiz:
                           sort_keys=True, \
                           indent=4))
     
-    def study(self, shuffle=True):
+    def study(self, Shuffle=True):
         """ studies the deck """
-        if shuffle == True:
+        if Shuffle == True:
             shuffle(self.cards)
 
         print('\n\t--hit enter to flip cards--\n')
@@ -60,18 +59,22 @@ class Notes:
     pass
 
 def main():
-    if len(sys.argv) == 0:
+    Shuffle = True
+    if len(sys.argv) == 1:
         print(helpstr)
-    elif len(sys.argv) >= 1:
+    elif len(sys.argv) >= 2:
         sys.argv.pop(0)
         if '-h' in sys.argv or '--help' in sys.argv:
             print(helpstr)
             return
         if '-s' in sys.argv:
-            shuffle = False
+            Shuffle = False
             sys.argv.pop(sys.argv.index('-s'))
         if '-j' in sys.argv:
-            quiz = Quiz()
+            quiz = Quiz(name="test_json")
+            quiz.from_file(sys.argv)
+            quiz.to_json()
+
     else:
         print('something went wrong')
     
@@ -87,7 +90,7 @@ def main():
     if Shuffle == True:
         quiz.study()
     else:
-        quiz.study(shuffle=False)
+        quiz.study(Shuffle=False)
 
 if __name__ == '__main__':
         main()
