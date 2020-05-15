@@ -14,9 +14,9 @@ __email__ = "nuttereg@gmail.com"
 helpstr = """ lol """
 
 class Quiz:
-    def __init__(self):
-        self.name = ""
-        self.cards = []
+    def __init__(self, name='', cards=[]):
+        self.name = name
+        self.cards = cards
         self.size = 0
 
     def from_file(self, filenames):
@@ -26,14 +26,11 @@ class Quiz:
                 with open(file, 'r') as deckfile:
                     decks.append(deckfile.readlines())
             except IOError:
-                print("{} does not appear to exist", file)
+                print(file, "does not appear to exist")
                 break
         
-        [ deck for deck in decks [ card for card in deck self.cards.append(card) ]]
-        #for deck in decks:
-        #    for card in deck:
-        #        self.cards.append(card)
-
+        [[ self.cards.append(card) for card in deck ] for deck in decks ]
+        
     def to_string(self):
         pass
 
@@ -44,9 +41,9 @@ class Quiz:
                           sort_keys=True, \
                           indent=4))
     
-    def study(self, shuffle=True):
+    def study(self, Shuffle=True):
         """ studies the deck """
-        if shuffle == True:
+        if Shuffle == True:
             shuffle(self.cards)
 
         print('\n\t--hit enter to flip cards--\n')
@@ -57,9 +54,16 @@ class Quiz:
             input(a)
 
 class Notes:
+    """This may never get implemented"""
     pass
 
+
+# this is included in the library to keep the complete functionality of the program contained
+# to one file. 
 def main():
+    # Options
+    Shuffle = True
+
     if len(sys.argv) == 0:
         print(helpstr)
     elif len(sys.argv) >= 1:
@@ -68,26 +72,27 @@ def main():
             print(helpstr)
             return
         if '-s' in sys.argv:
-            shuffle = False
+            Shuffle = False
             sys.argv.pop(sys.argv.index('-s'))
         if '-j' in sys.argv:
+            sys.argv.pop(sys.argv.index('-j'))
             quiz = Quiz()
+            quiz.from_file(sys.argv)
+            quiz.to_json()
     else:
         print('something went wrong')
     
-    sys.argv.pop(0)
-
     quiz = Quiz()
 
-    try:
+    try: # needs to be a try, except else... for now
         quiz.from_file(sys.argv)
     except:
-        print('{} don\'t seem to exist', sys.argv)
+        print(sys.argv, 'don\'t seem to exist')
 
     if Shuffle == True:
         quiz.study()
     else:
-        quiz.study(shuffle=False)
+        quiz.study(Shuffle=False)
 
 if __name__ == '__main__':
         main()
