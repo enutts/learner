@@ -14,7 +14,7 @@ __email__ = "nuttereg@gmail.com"
 helpstr = """ lol """
 
 class Quiz:
-    def __init__(self, name='', cards=[]):
+    def __init__(self, name='', cards = []):
         self.name = name
         self.cards = cards
         self.size = 0
@@ -28,9 +28,9 @@ class Quiz:
             except IOError:
                 print(file, "does not appear to exist")
                 break
-        
-        [[ self.cards.append(card) for card in deck ] for deck in decks ]
-        
+
+        [[ self.cards.append(card) for card in deck ]  for deck in decks ]
+
     def to_string(self):
         pass
 
@@ -57,16 +57,17 @@ class Notes:
     """This may never get implemented"""
     pass
 
+class Tasks:
+    """This may also never get implemented""" 
+    pass
 
 # this is included in the library to keep the complete functionality of the program contained
 # to one file. 
 def main():
-    # Options
     Shuffle = True
-
-    if len(sys.argv) == 0:
+    if len(sys.argv) == 1:
         print(helpstr)
-    elif len(sys.argv) >= 1:
+    elif len(sys.argv) >= 2:
         sys.argv.pop(0)
         if '-h' in sys.argv or '--help' in sys.argv:
             print(helpstr)
@@ -76,9 +77,10 @@ def main():
             sys.argv.pop(sys.argv.index('-s'))
         if '-j' in sys.argv:
             sys.argv.pop(sys.argv.index('-j'))
-            quiz = Quiz()
+            quiz = Quiz(name="test_json")
             quiz.from_file(sys.argv)
             quiz.to_json()
+
     else:
         print('something went wrong')
     
