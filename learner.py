@@ -10,19 +10,28 @@ __license__ = "Apache 2.0"
 __version__ = "0.0.1"
 __email__ = "nuttereg@gmail.com"
 
-helpstr = """ lol """
+helpstr = """ 
+Manages flashcards and notes. 
+
+Flags: 
+    -h -> Displays this help string
+    Flashcards: 
+        -s {DECKS...} -> Study deck, or if more than one are supplied, it will interlieve them all, then shuffle
+        -S {DECKS...} -> same as -s, but doesn't shuffle
+"""
 
 class Quiz:
-    name = ''
-    cards = []
-    size = 0
     def __init__(self, filelist = []):
-        if filelist == []:
-            # it may be a bad idea to allow this kind of call...
-            self.name = ''
-            self.cards = []
-            self.size = 0
-        else:
+        self.name = ''
+        self.cards = []
+        self.size = 0
+        self.json = {}
+
+        if filelist != []:
+            
+            # simple for now
+            self.name = filelist[1]
+
             decks = []
             for file in filelist:
                 names = filelist
@@ -37,16 +46,20 @@ class Quiz:
 
             [[ self.cards.append(card) for card in deck ]  for deck in decks ]
 
+            self.size = len(self.cards)
+
+
+
     def to_string(self):
         """converts a json Quiz to the "legacy" format"""
         pass
 
     def to_json(self):
         """converts a String format deck to json"""
-        json.dumps({"name": self.name, "qa": [self.cards]}, \
-                          separators=(':', ','), \
-                          sort_keys=True, \
-                          indent=4)
+        self.json = json.dumps({"name": self.name, "qa": [self.cards]}, \
+                                separators=(':', ','), \
+                                sort_keys=True, \
+                                indent=4)
     
     def study(self, Shuffle=True):
         """ studies the deck """
