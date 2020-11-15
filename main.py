@@ -9,7 +9,8 @@ import quiz
 # main program to run app on command line
 
 def main():
-    parser = argparse.ArgumentParser(description='Comprehensive Command Line cognitive growth software')
+    parser = argparse.ArgumentParser(
+                        description='Comprehensive Command Line cognitive growth software')
     parser.add_argument('-d', '--deck',
                         nargs='*',
                         default=argparse.SUPPRESS,
@@ -29,7 +30,7 @@ def main():
 
     args = parser.parse_args()
     print(args)
-    
+
 
 if __name__ == '__main__':
     main()
