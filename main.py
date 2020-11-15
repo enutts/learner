@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import argparse
 import configparser
 # import sys
@@ -28,10 +30,6 @@ def main():
                         action='store_true',
                         default=False,
                         help='whether or not to randomize order of cards')
-    parser.add_argument('-i', '--interleave',
-                        action='store_true',
-                        default=False,
-                        help='shuffles decks together instead of running in sequence')
     parser.add_argument('-q', '--quick',
                         action='store_true',
                         default=False, 

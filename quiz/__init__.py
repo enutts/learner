@@ -17,7 +17,8 @@ class Quiz:
             for file in filelist:
                 try:
                     with open(file, 'r') as deckfile:
-                        [ self.cards.append(card) for card in deckfile.readlines() ]
+                        for card in deckfile.readlines():
+                            self.cards.append(card)
                 except OSError:
                     raise OSError
                 except IOError:
@@ -27,7 +28,7 @@ class Quiz:
         l = len(self.cards)
         return l
     
-    def study(self, shuffle=False):
+    def study(self, shuffle=False, interleave=False):
         """ study the deck """
         if shuffle == True:
             rshuf(self.cards)
