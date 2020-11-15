@@ -5,9 +5,9 @@ import configparser
 # import sys
 # import os
 
+from quiz import Quiz
 # import kim
 # import notes
-from quiz import Quiz
 
 # main program to run app on command line
 
@@ -17,14 +17,15 @@ __version__ = "0.0.1"
 __email__ = "nuttereg@gmail.com"
 
 def main():
-    configs = configparser.ConfigParser()
-
+    config = configparser.ConfigParser()
+    config.read('test_config.ini')
+    
 
     parser = argparse.ArgumentParser(
                         description='Comprehensive Command Line cognitive growth software')
     parser.add_argument('decks',
                         nargs='*',
-                        default=argparse.SUPPRESS,
+                        default=[],
                         help='location of deck(s) you want to study')
     parser.add_argument('-s', '--shuffle',
                         action='store_true',
