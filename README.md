@@ -1,2 +1,2 @@
 # learner
-Simple python program/library for simple text/web based learning tools
+Simple cognitive growth software written in python

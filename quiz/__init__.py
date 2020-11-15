@@ -1,4 +1,3 @@
-import sys
 import json
 from os import path
 from random import shuffle
@@ -97,31 +96,3 @@ class Notes:
 class Tasks:
     """This may also never get implemented""" 
     pass
-
-# this is included in the library to keep the complete functionality of the program contained
-# to one file. 
-def main():
-    if len(sys.argv) == 1:
-        print(helpstr)
-    elif len(sys.argv) >= 2:
-        sys.argv.pop(0)
-        if '-h' in sys.argv or '--help' in sys.argv:
-            print(helpstr)
-            return
-        if '-s' in sys.argv:
-            sys.argv.pop(sys.argv.index('-s'))
-            quiz = Quiz(sys.argv)
-            quiz.study()
-            quiz.save()
-        if '-S' in sys.argv:
-            quiz = Quiz(sys.argv)
-            quiz.study(Shuffle=False)
-        if '-j' in sys.argv:
-            sys.argv.pop(sys.argv.index('-j'))
-            quiz = Quiz(sys.argv)
-            quiz.to_json()
-    else:
-        print('something went wrong')
-
-if __name__ == '__main__':
-        main()
