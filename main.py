@@ -3,17 +3,22 @@ import argparse
 # main program to run app on command line
 
 def main():
-    parser = argparse.argumentParser(description='Comprehensive Command Line cognitive growth software')
-    parser.add_argument('-d', '--deck', 
-                        help='location of deck you want to study')
-    parser.add_argument('-s', '--shuffle',
-                        type=bool, 
-                        help='whether or not to randomize order of cards')
-    parser.add_argument('-i', '--interlieve',
+    parser = argparse.ArgumentParser(description='Comprehensive Command Line cognitive growth software')
+    parser.add_argument('-d', '--deck',
                         nargs='*',
-                        help='shuffles multiple complete decks together to study at once')
+                        default=argparse.SUPPRESS,
+                        help='location of deck(s) you want to study')
+    parser.add_argument('-s', '--shuffle',
+                        type=bool,
+                        default=argparse.SUPPRESS,
+                        help='whether or not to randomize order of cards')
+    parser.add_argument('-i', '--interleave',
+                        type=bool,
+                        default=argparse.SUPPRESS,
+                        help='shuffles decks together instead of running in sequence')
     parser.add_argument('-q', '--quick',
-                        type=bool, 
+                        type=bool,
+                        default=argparse.SUPPRESS, 
                         help='takes a random fifth of each deck to study')
 
     args = parser.parse_args()
