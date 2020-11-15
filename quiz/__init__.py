@@ -1,31 +1,15 @@
 import json
 from os import path
-from random import shuffle
+from random import shuffle as rshuf
 
-"""
-this is a small library containing all the logic
-"""
 __author__ = "Eric Nutter"
 __license__ = "Apache 2.0"
 __version__ = "0.0.1"
 __email__ = "nuttereg@gmail.com"
 
-helpstr = """ 
-Manages flashcards and notes. 
-
-Flags: 
-    -h -> Displays this help string
-    Flashcards: 
-        -s {DECKS...} -> Study deck, or if more than one are supplied, it will interlieve them all, then shuffle
-        -S {DECKS...} -> same as -s, but doesn't shuffle
-"""
-
 class Quiz:
-
     def __init__(self, filelist = []):
-        self.name = ''
         self.cards = []
-        self.json = {}
 
         if filelist != []:
             self.name = filelist[0].split('.')[0]
@@ -41,58 +25,18 @@ class Quiz:
 
     def __len__(self):
         l = len(self.cards)
-        l += len(self.json)
         return l
-
-    def to_legacy(self):
-        #pass
-        if len(self) == 0:
-            print("need to figure out what kind of error this is")
-        else:
-            self.cards = self.json['cards']
-            
-    def to_json(self):
-        if len(self.json) == 0:
-            self.json = json.dumps({"name": self.name, "qa": [self.cards]}, \
-                                    separators=(':', ','), \
-                                    sort_keys=True, \
-                                    indent=4)
     
-    def save(self):
-        """ saves the deck in both classical or json formats """
-        legacy_name = self.name + '.txt'
-        json_name = self.name + '.json'
-        if not path.isfile(legacy_name):
-            if self.cards == []:
-                self.to_legacy()
-            with open(legacy_name, 'w') as f:
-                for c in self.cards:
-                    f.write(c)
-        
-        if not path.isfile(json_name):
-            if self.json == {}:
-                self.to_json()
-            with open(json_name, 'w') as f:
-                f.write(self.json)
-    
-    def study(self, Shuffle=True):
-        """ study the deck at the command line """
-        if Shuffle == True:
-            shuffle(self.cards)
+    def study(self, shuffle=False):
+        """ study the deck """
+        if shuffle == True:
+            rshuf(self.cards)
 
         print('\n\t--hit enter to flip cards--\n')
 
         for card in self.cards:
             q, a = card.split('::')
+            al = a.split(';;')
             input(q)
-            input(a)
-
-class Notes:
-    """This may never get implemented"""
-    pass
-    #__init__(self, notes_dir):
-    #    self.dir = notes_dir
-
-class Tasks:
-    """This may also never get implemented""" 
-    pass
+            for sa in al:
+                input(sa)
