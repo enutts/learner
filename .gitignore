@@ -139,7 +139,5 @@ cython_debug/
 
 # testing application specific features
 decks/
-
 notes/
-
 test_config.ini

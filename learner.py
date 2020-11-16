@@ -10,6 +10,7 @@ from quiz import Quiz
 # import notes
 
 # main program to run app on command line
+# this is still in very early development
 
 __author__ = "Eric Nutter"
 __license__ = "Apache 2.0"
