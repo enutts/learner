@@ -20,7 +20,10 @@ __email__ = "nuttereg@gmail.com"
 def main():
     config = configparser.ConfigParser()
     config.read('test_config.ini')
-    
+    DECK_DIR = config['local_decks']['deck_dir']
+    NOTES_DIR = config['local_notes']['notes_dir']
+    SERV_PORT = config['local_server']['port']
+    REMOTE_SERVS = config['remote_servers']['address'].split(',')
 
     parser = argparse.ArgumentParser(
                         description='Comprehensive Command Line cognitive growth software')
