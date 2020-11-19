@@ -23,12 +23,14 @@ def main():
     DECK_DIR = config['local_decks']['deck_dir']
     NOTES_DIR = config['local_notes']['notes_dir']
     SERV_PORT = config['local_server']['port']
-    REMOTE_SERVS = config['remote_servers']['address'].split(',')
+    REMOTE_SERVS = config['remote_servers']['address'].split()
 
     parser = argparse.ArgumentParser(
-                        description='Comprehensive Command Line cognitive growth software')
+                        description='Comprehensive Command Line cognitive growth software',
+                        epilog='''Cards should be one line with questiong and answer separated 
+                        with '::' and multi stage answers separated with ';;' ''')
     parser.add_argument('decks',
-                        nargs='*',
+                        nargs='+',
                         default=[],
                         help='location of deck(s) you want to study')
     parser.add_argument('-s', '--shuffle',
@@ -39,6 +41,10 @@ def main():
                         action='store_true',
                         default=False, 
                         help='takes a random fifth of each deck to study')
+    parser.add_argument('-g', '--web-gui',
+                        action='store_true',
+                        default=False,
+                        help='Runs a local gui in web browser')
     args = vars(parser.parse_args())
     decks = args['decks']
 
@@ -48,6 +54,11 @@ def main():
     except (OSError, IOError) as err:
         print(f'Trying to study {decks} failed \nerror: {err}')
         pass
+
+    # print(DECK_DIR)
+    # print(NOTES_DIR)
+    # print(SERV_PORT)
+    # print(REMOTE_SERVS)
   
 if __name__ == '__main__':
     main()
